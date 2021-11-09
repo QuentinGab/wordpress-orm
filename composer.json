@@ -1,0 +1,50 @@
+{
+    "name": "quentingab/wordpress-orm",
+    "type": "library",
+    "description": "WordPress ORM",
+    "keywords": [
+        "quentingab",
+        "wordpress",
+        "orm"
+    ],
+    "homepage": "https://github.com/quentingab/wordpress-orm",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "quentin gabriele",
+            "email": "quentin.gabriele@gmail.com",
+            "homepage": "https://linkedin.com/in/quentin-gabriele-86b161196/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=8.0",
+        "squizlabs/php_codesniffer": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "QuentinGab\\WordpressOrm\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "QuentinGab\\WordpressOrm\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs src tests",
+        "fix-style": "phpcbf src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
