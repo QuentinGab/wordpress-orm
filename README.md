@@ -24,7 +24,7 @@ $ composer require quentingab/wordpress-orm
 ### Get all posts/page and custom post type
 
 ```php
-$posts = \QuentinGab\WordpressOrm\Wodel::all();
+$posts = \QuentinGab\WordpressOrm\Wodel::init()->all();
 foreach($posts as $post){
     echo $post->post_title;
 }
@@ -33,13 +33,13 @@ foreach($posts as $post){
 ### Get current post with acf
 
 ```php
-$post = \QuentinGab\WordpressOrm\Wodel::current();
+$post = \QuentinGab\WordpressOrm\Wodel::init()->current();
 ```
 
 ### Update a post
 
 ```php
-$post = \QuentinGab\WordpressOrm\Wodel::current();
+$post = \QuentinGab\WordpressOrm\Wodel::init()->current();
 $post->post_title = "Hello World";
 $post->save();
 ```
@@ -71,7 +71,7 @@ class Page extends \QuentinGab\WordpressOrm\Wodel
     ];
 }
 
-$page = Page::find(1);
+$page = Page::init()->find(1);
 echo $page->acf['color'];
 ```
 
@@ -122,9 +122,9 @@ class Event extends \QuentinGab\WordpressOrm\Model
 ### Get Model
 
 ```php
-$all = Event::all();
-$only_active = Event::where(['active'=>true]);
-$with_primary_key_1 = Event::find(1);
+$all = Event::init()->all();
+$only_active = Event::init()->where(['active'=>true])->get();
+$with_primary_key_1 = Event::init()->find(1);
 ```
 
 ### Save Model

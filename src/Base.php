@@ -36,6 +36,11 @@ class Base
         # code...
     }
 
+    public static function init()
+    {
+        return new static();
+    }
+
     protected function fill(array $data, $casts = false)
     {
         if ($casts) {

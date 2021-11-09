@@ -87,6 +87,11 @@ class Wodel extends Base
         return $this->first();
     }
 
+    public function current()
+    {
+        return $this->find(get_the_ID());
+    }
+
     public function first()
     {
         $posts = $this->get(1);
