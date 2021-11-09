@@ -1,10 +1,11 @@
 # wodel
+
 Easy way to interact with WordPress database, query, insert and update posts.
 And it also works with ACF.
 
-[![Latest Version on Packagist][ico-version]](https://packagist.org/packages/quentingab/wodel)
+[![Latest Version on Packagist][ico-version]](https://packagist.org/packages/quentingab/wordpress-orm)
 [![Software License][ico-license]](LICENSE.md)
-[![Total Downloads][ico-downloads]](https://packagist.org/packages/quentingab/wodel)
+[![Total Downloads][ico-downloads]](https://packagist.org/packages/quentingab/wordpress-orm)
 
 <!-- [![Build Status][ico-travis]][link-travis] -->
 <!-- [![Coverage Status][ico-scrutinizer]][link-scrutinizer] -->
@@ -14,34 +15,39 @@ And it also works with ACF.
 
 Via Composer
 
-``` bash
+```bash
 $ composer require quentingab/wordpress-orm
 ```
 
 ## Usage with WordPress posts
 
 ### Get all posts/page and custom post type
-``` php
-$posts = QuentinGgab\Models\Wodel::all();
+
+```php
+$posts = \QuentinGab\WordpressOrm\Wodel::all();
 foreach($posts as $post){
     echo $post->post_title;
 }
 ```
+
 ### Get current post with acf
-``` php
-$post = QuentinGab\Models\Wodel::current();
+
+```php
+$post = \QuentinGab\WordpressOrm\Wodel::current();
 ```
 
 ### Update a post
-``` php
-$post = QuentinGab\Models\Wodel::current();
+
+```php
+$post = \QuentinGab\WordpressOrm\Wodel::current();
 $post->post_title = "Hello World";
 $post->save();
 ```
 
 ### Insert a post
-``` php
-$post = new QuentinGab\Models\Wodel(
+
+```php
+$post = new \QuentinGab\WordpressOrm\Wodel(
     [
     'post_title'=>'Hello World'
     ]
@@ -50,11 +56,12 @@ $post->save();
 ```
 
 ## Extend the Wodel
-``` php
-class Page extends QuentinGab\Wodel\Models\Wodel
+
+```php
+class Page extends \QuentinGab\WordpressOrm\Wodel
 {
     protected $post_type = 'page';
-    
+
     //only necessary if you want to insert a new post programmatically
     //otherwise the acf fields will not be populated
     //If you only get Model or update existing Model you can omit $acf_keys
@@ -65,16 +72,17 @@ class Page extends QuentinGab\Wodel\Models\Wodel
 }
 
 $page = Page::find(1);
-echo $page->color;
+echo $page->acf['color'];
 ```
 
-
 ## Usage with custom table
-if you have data stored in a custom table you can use QuentinGab\Models\Model to interact with the database.
+
+if you have data stored in a custom table you can use \QuentinGab\WordpressOrm\Model to interact with the database.
 Under the hood it only use default WordPress object $wpdb.
 
 ### Example of a custom table
-``` php
+
+```php
 global $wpdb;
 
 $table_name = 'events';
@@ -90,31 +98,38 @@ $sql = "CREATE TABLE $table_name (
 
 dbDelta($sql);
 ```
+
 ### Create a Model class
-``` php
-class Event extends QuentinGab\Wodel\Models\Model
+
+```php
+class Event extends \QuentinGab\WordpressOrm\Model
 {
     protected $table = 'events';
-    
+
     protected $primary_key = "id";
-    
+
     protected $fillable = [
         'title'
     ];
 
     protected $casts = [
         'active' => 'bool',
+        'created_at' => "date"
     ];
 }
 ```
+
 ### Get Model
-``` php
+
+```php
 $all = Event::all();
 $only_active = Event::where(['active'=>true]);
 $with_primary_key_1 = Event::find(1);
 ```
+
 ### Save Model
-``` php
+
+```php
 $new_event = new Event(['title'=>'my new event','active'=>false]);
 $new_event->save();
 ```
@@ -125,7 +140,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Testing
 
-``` bash
+```bash
 $ composer test
 ```
 
@@ -139,7 +154,7 @@ If you discover any security related issues, please email quentin.gabriele@gmail
 
 ## Credits
 
-- [quentin gabriele](https://github.com/QuentinGab)
+-   [quentin gabriele](https://github.com/QuentinGab)
 <!-- - [All Contributors][link-contributors] -->
 
 ## License
@@ -152,7 +167,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/quentingab/wodel.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/quentingab/wodel.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/quentingab/wodel.svg?style=flat-square
-
 [link-packagist]: https://packagist.org/packages/quentingab/wodel
 [link-travis]: https://travis-ci.org/quentingab/wodel
 [link-scrutinizer]: https://scrutinizer-ci.com/g/quentingab/wodel/code-structure
