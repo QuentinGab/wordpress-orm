@@ -23,6 +23,9 @@ class QueryBuilder
         # code...
     }
 
+    /**
+     * @return static
+     */
     public function where($column, $operator = "=", $value)
     {
         $this->where[$column] = [
@@ -33,6 +36,9 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function orWhere($column, $operator = "=", $value)
     {
         $this->where[$column] = [
@@ -43,7 +49,10 @@ class QueryBuilder
         return $this;
     }
 
-    public function buildWpQuery(): array
+    /**
+     * @return array
+     */
+    public function buildWpQuery()
     {
         $defaults =
             [
@@ -67,7 +76,10 @@ class QueryBuilder
         );
     }
 
-    public function buildSqlQuery(): string
+    /**
+     * @return string
+     */
+    public function buildSqlQuery()
     {
         global $wpdb;
 
@@ -133,25 +145,37 @@ class QueryBuilder
         }
     }
 
+    /**
+     * @return static
+     */
     public function driver(string $value)
     {
         $this->driver = $value;
         return $this;
     }
 
-    public function table(string $name): static
+    /**
+     * @return static
+     */
+    public function table(string $name)
     {
         $this->table = $name;
         return $this;
     }
 
-    public function limit(?int $value): static
+    /**
+     * @return static
+     */
+    public function limit(?int $value)
     {
         $this->limit = $value;
         return $this;
     }
 
-    public function order($orderBy, $order = "DESC"): static
+    /**
+     * @return static
+     */
+    public function order($orderBy, $order = "DESC")
     {
         if (is_array($orderBy)) {
             $orderBy = join(",", $orderBy);

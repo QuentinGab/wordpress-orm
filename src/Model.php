@@ -64,7 +64,9 @@ class Model extends Base
 
     public function first()
     {
-        return $this->get(1)->first();
+        $items = $this->get(1);
+
+        return empty($items) ? null : $items[0];
     }
 
     public function find($primary_key)

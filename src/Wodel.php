@@ -40,6 +40,16 @@ class Wodel extends Base
         $this->fill($data, $casts);
     }
 
+    public function type(string $post_type)
+    {
+        $this->post_type = $post_type;
+        return $this;
+    }
+
+    /**
+     * @param int|null $limit
+     * @return array
+     */
     public function get($limit = null)
     {
         $this->initQueryBuilder();
@@ -74,11 +84,17 @@ class Wodel extends Base
         return $posts;
     }
 
+    /**
+     * @return array
+     */
     public function all()
     {
         return $this->get(-1);
     }
 
+    /**
+     * @return static|null
+     */
     public function find($id)
     {
         $this->where('p', $id);
@@ -87,11 +103,17 @@ class Wodel extends Base
         return $this->first();
     }
 
+    /**
+     * @return static|null
+     */
     public function current()
     {
         return $this->find(get_the_ID());
     }
 
+    /**
+     * @return static|null
+     */
     public function first()
     {
         $posts = $this->get(1);
@@ -99,6 +121,9 @@ class Wodel extends Base
         return empty($posts) ? null : $posts[0];
     }
 
+    /**
+     * @return static
+     */
     public function save()
     {
         $isNewPost = isset($this->ID);
@@ -158,6 +183,9 @@ class Wodel extends Base
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function delete()
     {
         $this->deleting();

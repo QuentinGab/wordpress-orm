@@ -1,7 +1,9 @@
-# wodel
+# Wordpress ORM
 
-Easy way to interact with WordPress database, query, insert and update posts.
-And it also works with ACF.
+Wordpress ORM provide an easy way to interact with WordPress database, query, insert and update posts. The syntax is heavily inspired by Eloquent ORM and Laravel.
+The package provide two kind of models: `Model` to interact with custom table in WordPress and `wordpress-orm` to interact with WP_Query in a more natural way ( and it also works well with ACF).
+
+This package only use WP buildin function like `WP_Query`, `wp_insert_post` and `wpdb`.
 
 [![Latest Version on Packagist][ico-version]](https://packagist.org/packages/quentingab/wordpress-orm)
 [![Software License][ico-license]](LICENSE.md)
@@ -21,10 +23,10 @@ $ composer require quentingab/wordpress-orm
 
 ## Usage with WordPress posts
 
-### Get all posts/page and custom post type
+### Get all posts/page or custom post type
 
 ```php
-$posts = \QuentinGab\WordpressOrm\Wodel::init()->all();
+$posts = \QuentinGab\WordpressOrm\wordpress-orm::init()->type('post')->all();
 foreach($posts as $post){
     echo $post->post_title;
 }
@@ -33,13 +35,13 @@ foreach($posts as $post){
 ### Get current post with acf
 
 ```php
-$post = \QuentinGab\WordpressOrm\Wodel::init()->current();
+$post = \QuentinGab\WordpressOrm\wordpress-orm::init()->current();
 ```
 
 ### Update a post
 
 ```php
-$post = \QuentinGab\WordpressOrm\Wodel::init()->current();
+$post = \QuentinGab\WordpressOrm\wordpress-orm::init()->current();
 $post->post_title = "Hello World";
 $post->save();
 ```
@@ -47,18 +49,21 @@ $post->save();
 ### Insert a post
 
 ```php
-$post = new \QuentinGab\WordpressOrm\Wodel(
+$post = new \QuentinGab\WordpressOrm\wordpress-orm(
     [
-    'post_title'=>'Hello World'
+    'post_title'=>'Hello World',
+    'acf' => [
+            'field_name' => 'value'
+        ]
     ]
 );
 $post->save();
 ```
 
-## Extend the Wodel
+## Extend the wordpress-orm
 
 ```php
-class Page extends \QuentinGab\WordpressOrm\Wodel
+class Page extends \QuentinGab\WordpressOrm\wordpress-orm
 {
     protected $post_type = 'page';
 
@@ -161,16 +166,16 @@ If you discover any security related issues, please email quentin.gabriele@gmail
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/quentingab/wodel.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/quentingab/wordpress-orm.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/quentingab/wodel/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/quentingab/wodel.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/quentingab/wodel.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/quentingab/wodel.svg?style=flat-square
-[link-packagist]: https://packagist.org/packages/quentingab/wodel
-[link-travis]: https://travis-ci.org/quentingab/wodel
-[link-scrutinizer]: https://scrutinizer-ci.com/g/quentingab/wodel/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/quentingab/wodel
-[link-downloads]: https://packagist.org/packages/quentingab/wodel
+[ico-travis]: https://img.shields.io/travis/quentingab/wordpress-orm/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/quentingab/wordpress-orm.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/quentingab/wordpress-orm.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/quentingab/wordpress-orm.svg?style=flat-square
+[link-packagist]: https://packagist.org/packages/quentingab/wordpress-orm
+[link-travis]: https://travis-ci.org/quentingab/wordpress-orm
+[link-scrutinizer]: https://scrutinizer-ci.com/g/quentingab/wordpress-orm/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/quentingab/wordpress-orm
+[link-downloads]: https://packagist.org/packages/quentingab/wordpress-orm
 [link-author]: https://github.com/quentingab
 [link-contributors]: ../../contributors
