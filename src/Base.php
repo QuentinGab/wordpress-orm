@@ -12,6 +12,11 @@ class Base
 
     protected $casts = [];
 
+    public function __construct(array $data = [], $casts = false)
+    {
+        $this->fill($data, $casts);
+    }
+
     /**
      * perform action before creating a new post
      */

@@ -25,11 +25,6 @@ class Model extends Base
         'id' => 'int'
     ];
 
-    public function __construct(array $data = [], $casts = false)
-    {
-        $this->fill($data, $casts);
-    }
-
     public function get($limit = null)
     {
         global $wpdb;
