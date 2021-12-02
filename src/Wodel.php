@@ -35,10 +35,6 @@ class Wodel extends Base
         // "acf.my_field"=>"int"
     ];
 
-    public function __construct(array $data = [], $casts = false)
-    {
-        $this->fill($data, $casts);
-    }
 
     public function type(string $post_type)
     {
@@ -119,6 +115,31 @@ class Wodel extends Base
         $posts = $this->get(1);
 
         return empty($posts) ? null : $posts[0];
+    }
+
+    public function findOrCreate($args = [])
+    {
+        $instance = null;
+
+        if (
+            isset($args['post_name']) &&
+            !empty($args['post_name'])
+        ) {
+            $instance = static::init()
+                ->where(
+                    'post_status',
+                    'any'
+                )
+                ->where('name', $args['post_name'])
+                ->first();
+        }
+
+        if (!$instance) {
+            $instance = new static($args);
+            $instance->save();
+        }
+
+        return $instance;
     }
 
     /**
