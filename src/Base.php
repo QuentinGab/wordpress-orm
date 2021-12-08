@@ -46,7 +46,7 @@ class Base
         return new static();
     }
 
-    protected function fill(array $data, $casts = false)
+    public function fill(array $data, $casts = false)
     {
         if ($casts) {
 

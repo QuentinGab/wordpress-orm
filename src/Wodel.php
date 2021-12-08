@@ -24,6 +24,10 @@ class Wodel extends Base
     public ?int $limit = -1;
 
     public array $acf = [];
+
+    /**
+     * You have to define acf keys if you insert new posts
+     */
     public array $acf_keys = [
         // 'my_field' => "field_6189fd5611e1f"
     ];
@@ -222,6 +226,21 @@ class Wodel extends Base
     public function content()
     {
         return apply_filters('the_content', $this->post_content);
+    }
+
+    public function thumbnail($array = [])
+    {
+        $args = array_merge([
+            'class' => 'img-fluid',
+            'size' => 'my_large'
+        ], $array);
+
+        return wp_get_attachment_image(
+            get_post_thumbnail_id($this->ID),
+            $args['size'],
+            false,
+            ['class' => $args['class']]
+        );
     }
 
     protected function initQueryBuilder()
