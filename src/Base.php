@@ -53,7 +53,7 @@ class Base
             foreach ($this->casts as $key => $cast) {
                 $value = static::dotGet($data, $key);
 
-                if ($value) {
+                if ($value !== null && $value !== "") {
 
                     if (
                         $cast === "int"
