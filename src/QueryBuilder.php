@@ -26,7 +26,7 @@ class QueryBuilder
     /**
      * @return static
      */
-    public function where($column, $operator = "=", $value)
+    public function where($column, $operator = "=", $value = null)
     {
         $this->where[$column] = [
             'type' => 'AND',
@@ -39,7 +39,7 @@ class QueryBuilder
     /**
      * @return static
      */
-    public function orWhere($column, $operator = "=", $value)
+    public function orWhere($column, $operator = "=", $value = null)
     {
         $this->where[$column] = [
             'type' => 'OR',
