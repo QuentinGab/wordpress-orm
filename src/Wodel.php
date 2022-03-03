@@ -159,19 +159,24 @@ class Wodel extends Base
             $this->updating();
         }
 
+        $data = [
+            'ID' => $this->ID ?? 0,
+            'post_content' => $this->post_content ?? '',
+            'post_title' => $this->post_title ?? '',
+            'post_excerpt' => $this->post_excerpt ?? '',
+            'post_status' => $this->post_status ?? 'draft',
+            'post_type' => $this->post_type ?? 'post',
+            'comment_status' => $this->comment_status ?? '',
+            'post_password' => $this->post_password ?? '',
+            'post_parent' => $this->post_parent ?? 0
+        ];
+
+        if (isset($this->post_name)) {
+            $data['post_name'] = $this->post_name;
+        }
+
         $result = wp_insert_post(
-            [
-                'ID' => $this->ID ?? 0,
-                'post_content' => $this->post_content ?? '',
-                'post_title' => $this->post_title ?? '',
-                'post_excerpt' => $this->post_excerpt ?? '',
-                'post_status' => $this->post_status ?? 'draft',
-                'post_type' => $this->post_type ?? 'post',
-                'comment_status' => $this->comment_status ?? '',
-                'post_password' => $this->post_password ?? '',
-                'post_name' => $this->post_name ?? '',
-                'post_parent' => $this->post_parent ?? 0
-            ]
+            $data
         );
 
         if (!$result) {
