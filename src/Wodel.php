@@ -169,6 +169,7 @@ class Wodel extends Base
                 'post_type' => $this->post_type ?? 'post',
                 'comment_status' => $this->comment_status ?? '',
                 'post_password' => $this->post_password ?? '',
+                'post_name' => $this->post_name ?? '',
                 'post_parent' => $this->post_parent ?? 0
             ]
         );
