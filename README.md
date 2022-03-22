@@ -1,9 +1,9 @@
 # Wordpress ORM
 
 Wordpress ORM provide an easy way to interact with WordPress database, query, insert and update posts. The syntax is heavily inspired by Eloquent ORM and Laravel.
-The package provide two kind of models: `Model` to interact with custom table in WordPress and `wordpress-orm` to interact with WP_Query in a more natural way ( and it also works well with ACF).
+The package provide two kind of models: `Model` to interact with custom table in WordPress and `Wodel` to interact with WP_Query in a more natural way ( and it also works well with ACF).
 
-This package only use WP buildin function like `WP_Query`, `wp_insert_post` and `wpdb`.
+This package only use WP builtin function like `WP_Query`, `wp_insert_post` and `wpdb`.
 
 [![Latest Version on Packagist][ico-version]](https://packagist.org/packages/quentingab/wordpress-orm)
 [![Software License][ico-license]](LICENSE.md)
@@ -26,7 +26,7 @@ $ composer require quentingab/wordpress-orm
 ### Get all posts/page or custom post type
 
 ```php
-$posts = \QuentinGab\WordpressOrm\wordpress-orm::init()->type('post')->all();
+$posts = \QuentinGab\WordpressOrm\Wodel::init()->type('post')->all();
 foreach($posts as $post){
     echo $post->post_title;
 }
@@ -35,13 +35,13 @@ foreach($posts as $post){
 ### Get current post with acf
 
 ```php
-$post = \QuentinGab\WordpressOrm\wordpress-orm::init()->current();
+$post = \QuentinGab\WordpressOrm\Wodel::init()->current();
 ```
 
 ### Update a post
 
 ```php
-$post = \QuentinGab\WordpressOrm\wordpress-orm::init()->current();
+$post = \QuentinGab\WordpressOrm\Wodel::init()->current();
 $post->post_title = "Hello World";
 $post->save();
 ```
@@ -49,7 +49,7 @@ $post->save();
 ### Insert a post
 
 ```php
-$post = new \QuentinGab\WordpressOrm\wordpress-orm(
+$post = new \QuentinGab\WordpressOrm\Wodel(
     [
     'post_title'=>'Hello World',
     'acf' => [
@@ -63,13 +63,13 @@ $post->save();
 ## Extend the wordpress-orm
 
 ```php
-class Page extends \QuentinGab\WordpressOrm\wordpress-orm
+class Page extends \QuentinGab\WordpressOrm\Wodel
 {
     protected $post_type = 'page';
 
     //only necessary if you want to insert a new post programmatically
     //otherwise the acf fields will not be populated
-    //If you only get Model or update existing Model you can omit $acf_keys
+    //If you only get Wodel or update existing Wodel you can omit $acf_keys
     protected $acf_keys = [
         'the_field_name' => 'the_field_key',
         'color' => 'field_5f7848684c404',
