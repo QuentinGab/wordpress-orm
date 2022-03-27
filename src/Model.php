@@ -16,10 +16,7 @@ class Model extends Base
     /**
      * You have to define updatable columns 
      */
-    protected array $fillable = [
-        "prenom",
-        "nom"
-    ];
+    protected array $fillable = [];
 
     protected $casts = [
         'id' => 'int'
