@@ -25,6 +25,15 @@ class Model extends Base
         'id' => 'int'
     ];
 
+    public function getTable()
+    {
+        if (method_exists($this, 'table')) {
+            return $this->table();
+        }
+
+        return $this->table;
+    }
+
     public function get($limit = null)
     {
         global $wpdb;
@@ -99,7 +108,7 @@ class Model extends Base
         );
 
         $isSuccess = !!$wpdb->insert(
-            $this->table,
+            $this->getTable(),
             $values,
             $values_type
         );
@@ -134,7 +143,7 @@ class Model extends Base
         );
 
         $isSuccess = !!$wpdb->update(
-            $this->table,
+            $this->getTable(),
             $values,
             [
                 $this->primary_key => $this->getPrimaryKey()
@@ -162,7 +171,7 @@ class Model extends Base
         $primary_key_type = is_int($this->getPrimaryKey()) ? '%d' : "%s";
 
         $deleted = $wpdb->delete(
-            $this->table,
+            $this->getTable(),
             [
                 $this->primary_key => $this->getPrimaryKey()
             ],
@@ -194,7 +203,7 @@ class Model extends Base
     {
         if (!$this->queryBuilder) {
             $this->queryBuilder = new QueryBuilder();
-            $this->queryBuilder->table($this->table);
+            $this->queryBuilder->table($this->getTable());
             $this->queryBuilder->driver($this->driver);
         }
     }
